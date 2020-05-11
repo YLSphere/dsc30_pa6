@@ -35,18 +35,18 @@ The search yielded no results for vin-diesel bill-paxton
 Documents related to vin-diesel are: [fast-and-furious, guardians-of-the-galaxy]
 Documents related to bill-paxton are: [weird-science]
 
-Query = “anton-yelchin”
+Query = “anton-yelchin michael-douglas”
 Query Number = 0
 Output:
 The search yielded no results for anton-yelchin michael-douglas
 The search yielded no results for anton-yelchin
 The search yielded no results for michael-douglas
 
-Query = “robert-downey-jr tom-holland scarlett-johannson”
+Query = “robert-downey-jr tom-holland scarlett-johansson”
 Query Number = 0
 Output:
 Documents related to robert-downey-jr tom-holland scarlett-johansson are: [avengers]
-Documents related to robert-downey-jr are: [chef, dolittle, iron-man-2, sherlock-holmes, tropic thunder, weird-science]
+Documents related to robert-downey-jr are: [chef, dolittle, iron-man-2, sherlock-holmes, tropic-thunder, weird-science]
 Documents related to tom-holland are: [spider-man-ffh]
 Documents related to scarlett-johansson are: [jojo-rabbit, we-bought-a-zoo]
 
@@ -67,19 +67,19 @@ Documents related to tom-holland are: [dolittle, spider-man-ffh]
 Query = "paramount"
 Query Number = 1
 Output:
-Documents related to paramount are: [iron-man-2, terminator, tropic thunder]
+Documents related to paramount are: [iron-man-2, terminator, tropic-thunder]
 
 Query = "paramount fox"
 Query Number = 1
 Output:
 The search yielded no results for paramount fox
-Documents related to paramount are: [iron-man-2, terminator, tropic thunder]
+Documents related to paramount are: [iron-man-2, terminator, tropic-thunder]
 Documents related to fox are: [jojo-rabbit, we-bought-a-zoo]
 
 Query = "dreamworks paramount"
 Query Number = 1
 Output:
-Documents related to dreamworks paramount are: [tropic thunder]
+Documents related to dreamworks paramount are: [tropic-thunder]
 Documents related to paramount are: [iron-man-2, terminator]
 
 Query = "FOX COLUMBIA"
@@ -87,7 +87,7 @@ Query Number = 1
 Output:
 The search yielded no results for FOX COLUMBIA
 Documents related to fox are: [jojo-rabbit, we-bought-a-zoo]
-The search yielded no results for columbia
+Documents related to columbia are: [spider-man-ffh]
 
 Query = "chris-evans scarlett-johansson"
 Query Number = 2

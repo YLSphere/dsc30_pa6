@@ -6,8 +6,10 @@
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -17,6 +19,7 @@ import java.util.Scanner;
  * @since  TODO
  */
 public class SearchEngine {
+    public static final int ARG_STARTER = 2;
 
     /**
      * Populate BSTrees from a file
@@ -29,15 +32,48 @@ public class SearchEngine {
      */
     public static boolean populateSearchTrees(BSTree<String> movieTree, BSTree<String> studioTree,
             BSTree<String> ratingTree, String fileName) {
+        File file = new File(fileName);
+        try {
+            Scanner scanner = new Scanner(file);
+            while (scanner.hasNextLine()) {
+                String movieName = scanner.nextLine().toLowerCase();
+                String actors = scanner.nextLine().toLowerCase();
+                String studio = scanner.nextLine().toLowerCase();
+                String rating = scanner.nextLine();
+                scanner.nextLine();
 
-        /* TODO */
-        // open and read file
+                String[] actorArray = actors.split(" ");
+                String[] studioArray = studio.split(" ");
 
-        // read lines and store them according to descriptions in the write-up
+                for (String n : actorArray) {
+                    movieTree.insert(n);
+                    movieTree.insertData(n, movieName);
+                }
 
-        // populate three trees with the information you just read
+                for (String n : studioArray) {
+                    studioTree.insert(n);
+                    studioTree.insertData(n, movieName);
+                }
+                for (String n : actorArray) {
+                    if (! ratingTree.findKey(n)) {
+                        ratingTree.insert(n);
+                        if (! ratingTree.findDataList(n).contains(rating)) {
+                            ratingTree.insertData(n, rating);
+                        }
+                    } else {
+                        if (! ratingTree.findDataList(n).contains(rating)) {
+                            ratingTree.insertData(n, rating);
+                        }
+                    }
+                }
+            }
+            scanner.close();
 
-        return false;
+            return true;
+
+        } catch (FileNotFoundException e ) {
+            return false;
+        }
     }
 
     /**
@@ -47,14 +83,40 @@ public class SearchEngine {
      * @param query      - query string
      */
     public static void searchMyQuery(BSTree<String> searchTree, String query) {
+        String[] queryArray = query.toLowerCase().split(" ");
+        if (queryArray.length == 1) {
+            if (! searchTree.findKey(query)) {
+                print(query, null);
+            } else {
+                print(query, searchTree.findDataList(query));
 
-        /* TODO */
-        // process query
-
-        // search and output intersection results
-
-        // search and output individual results
-
+            }
+        } else {
+            LinkedList<String> inter =  new LinkedList<>();
+            if (searchTree.findKey(queryArray[0])) {
+                inter.addAll(searchTree.findDataList(queryArray[0]));
+                for (int n = 1; n < queryArray.length; n++) {
+                    inter.retainAll(searchTree.findDataList(queryArray[n]));
+                }
+            }
+            print(query, inter);
+            LinkedList<String> totalOut = new LinkedList<>();
+            totalOut.addAll(inter);
+            for (int n = 0; n < queryArray.length; n++) {
+                if (! searchTree.findKey(queryArray[n])) {
+                    print(queryArray[n], null);
+                } else {
+                    LinkedList<String> temp = searchTree.findDataList(queryArray[n]);
+                    temp.removeIf(inter::contains);
+                    temp.removeIf(totalOut::contains);
+                    if (temp.isEmpty()) {
+                        continue;
+                    }
+                    print(queryArray[n], temp);
+                    totalOut.addAll(temp);
+                }
+            }
+        }
     }
 
     /**
@@ -79,15 +141,51 @@ public class SearchEngine {
      * @param args command line arguments
      */
     public static void main(String[] args) {
+        try {
 
-        /* TODO */
-        // initialize search trees
+            BSTree movieTree = new BSTree();
+            BSTree studioTree = new BSTree();
+            BSTree ratingTree = new BSTree();
+            populateSearchTrees(movieTree, studioTree, ratingTree, args[0]);
 
-        // process command line arguments
+            if (args[1].equals("0")) {
+                String query = "";
+                for (int n = ARG_STARTER; n < args.length; n++) {
+                    if (n == args.length - 1) {
+                        query += args[n];
+                    } else {
+                        query += args[n] + " ";
+                    }
 
-        // populate search trees
+                }
+                searchMyQuery(movieTree, query);
 
-        // choose the right tree to query
+            } else if (args[1].equals("1")) {
+                String query = "";
+                for (int n = ARG_STARTER; n < args.length; n++) {
+                    if (n == args.length - 1) {
+                        query += args[n];
+                    } else {
+                        query += args[n] + " ";
+                    }
 
+                }
+                searchMyQuery(studioTree, query);
+            } else if (args[1].equals("2")) {
+                String query = "";
+                for (int n = ARG_STARTER; n < args.length; n++) {
+                    if (n == args.length - 1) {
+                        query += args[n];
+                    } else {
+                        query += args[n] + " ";
+                    }
+
+                }
+                searchMyQuery(ratingTree, query);
+            }
+
+        } catch (IllegalArgumentException e) {
+            System.out.print(e.getMessage());
+        }
     }
 }

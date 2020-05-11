@@ -13,7 +13,7 @@ jude-law robert-downey-jr rachel-mcadams mark-strong
 warner-bros
 PG13
 -
-tropic thunder
+tropic-thunder
 ben-stiller tom-cruise jack-black jay-baruchel robert-downey-jr
 dreamworks paramount
 R
@@ -30,7 +30,7 @@ PG13
 -
 spider-man-ffh
 tom-holland jon-favreau zendaya jb-smoove martin-starr
-colubmia disney pascal
+columbia disney pascal
 PG13
 -
 jojo-rabbit
@@ -59,7 +59,7 @@ paramount
 PG13
 -
 hunger-games
-woody-harrleson jennifer-lawrence elizabeth-banks
+woody-harrelson jennifer-lawrence elizabeth-banks
 lionsgate
 PG13
 -

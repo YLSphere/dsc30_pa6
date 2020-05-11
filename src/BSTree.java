@@ -193,7 +193,7 @@ public class BSTree<T extends Comparable<? super T>> implements Iterable {
         }
         BSTNode temp = root;
 
-        if (findKey(key) == false) {
+        if (this.findKey(key) == false) {
             while (temp != null) {
                 if (key.compareTo(temp.getKey()) == -1) {
                     if (temp.getLeft() == null) {
@@ -228,9 +228,9 @@ public class BSTree<T extends Comparable<? super T>> implements Iterable {
         if (key == null) {
             throw new NullPointerException();
         }
-        BSTNode temp = root;
+        BSTNode temp = getRoot();
         while (temp != null) {
-            if (key == temp.getKey()) {
+            if (key.equals(temp.getKey())) {
                 return true;
             } else if (key.compareTo(temp.getKey()) == -1) {
                 temp = temp.getLeft();
@@ -257,9 +257,9 @@ public class BSTree<T extends Comparable<? super T>> implements Iterable {
             throw new IllegalArgumentException();
         }
 
-        BSTNode temp = root;
+        BSTNode temp = getRoot();
         while (temp != null) {
-            if (key == temp.getKey()) {
+            if (key.equals(temp.getKey())) {
                 temp.getDataList().add(data);
                 break;
 
@@ -290,7 +290,7 @@ public class BSTree<T extends Comparable<? super T>> implements Iterable {
 
         BSTNode temp = root;
         while (temp != null) {
-            if (key == temp.getKey()) {
+            if (key.equals(temp.getKey())) {
                 break;
             } else if (key.compareTo(temp.getKey()) == -1) {
                 temp = temp.getLeft();
@@ -359,24 +359,52 @@ public class BSTree<T extends Comparable<? super T>> implements Iterable {
     /* * * * * BST Iterator * * * * */
 
     public class BSTree_Iterator implements Iterator<T> {
+        Stack<T> stack;
         public BSTree_Iterator() {
-            /* TODO */
+            stack = new Stack<>();
+            BSTNode temp = getRoot();
+            while (temp != null) {
+                stack.push(temp.getKey());
+                temp = temp.getLeft();
+            }
         }
 
         public boolean hasNext() {
-            /* TODO */
-            return false;
+            if (stack.isEmpty()) {
+                return false;
+            }
+            return true;
         }
 
         public T next() {
-            /* TODO */
-            return null;
+            if (stack.isEmpty()) {
+                throw new NoSuchElementException();
+            }
+
+            T popped = stack.pop();
+            BSTNode treeNode = getRoot();
+            while (treeNode.getKey() != popped) {
+                if (popped.compareTo(treeNode.getKey()) == -1) {
+                    treeNode = treeNode.getLeft();
+                } else {
+                    treeNode = treeNode.getRight();
+                }
+            }
+            if (treeNode.getRight() == null) {
+                return popped;
+            } else {
+                BSTNode current = treeNode.getRight();
+                while (current != null) {
+                    stack.push(current.getKey());
+                    current = current.getLeft();
+                }
+                return popped;
+            }
         }
     }
 
     public Iterator<T> iterator() {
-        /* TODO */
-        return null;
+        return new BSTree_Iterator();
     }
 
     /* * * * * Extra Credit Methods * * * * */

@@ -1,7 +1,9 @@
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.NoSuchElementException;
 
 import static org.junit.Assert.*;
 
@@ -147,8 +149,44 @@ public class BSTreeTester {
         assertEquals(2, test.leafCount());
     }
 
+    @Test (expected = NoSuchElementException.class)
+    public void iteratorEx() {
+        Iterator<Integer> iter = test.iterator();
+        iter.next();
+    }
     @Test
     public void iterator() {
+
+
+        test.insert(8);
+        test.insert(3);
+        test.insert(10);
+        test.insert(1);
+        test.insert(6);
+        test.insert(14);
+        test.insert(4);
+        test.insert(7);
+        test.insert(13);
+
+        Iterator<Integer> iter = test.iterator();
+        assertTrue(iter.hasNext());
+
+        assertEquals(new Integer(1), iter.next());
+        iter.next();
+
+        assertEquals(new Integer(4), iter.next());
+        iter.next();
+        iter.next();
+
+        assertTrue(iter.hasNext());
+
+        assertEquals(new Integer(8), iter.next());
+        iter.next();
+        iter.next();
+        iter.next();
+
+        assertFalse(iter.hasNext());
+
     }
 
     @Test
