@@ -1,22 +1,20 @@
 
 /*
- * Name: TODO
- * PID:  TODO
+ * Name: Yin Lam Lai
+ * PID:  A15779757
  */
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Scanner;
 
 /**
  * Search Engine implementation.
  * 
- * @author TODO
- * @since  TODO
+ * @author Yin Lam Lai
+ * @since  7/5/2020
  */
 public class SearchEngine {
     public static final int ARG_STARTER = 2;
@@ -55,13 +53,13 @@ public class SearchEngine {
                     studioTree.insertData(n, movieName);
                 }
                 for (String n : actorArray) {
-                    if (! ratingTree.findKey(n)) {
+                    if (!ratingTree.findKey(n)) {
                         ratingTree.insert(n);
-                        if (! ratingTree.findDataList(n).contains(rating)) {
+                        if (!ratingTree.findDataList(n).contains(rating)) {
                             ratingTree.insertData(n, rating);
                         }
                     } else {
-                        if (! ratingTree.findDataList(n).contains(rating)) {
+                        if (!ratingTree.findDataList(n).contains(rating)) {
                             ratingTree.insertData(n, rating);
                         }
                     }
@@ -71,7 +69,7 @@ public class SearchEngine {
 
             return true;
 
-        } catch (FileNotFoundException e ) {
+        } catch (FileNotFoundException e) {
             return false;
         }
     }
@@ -85,7 +83,7 @@ public class SearchEngine {
     public static void searchMyQuery(BSTree<String> searchTree, String query) {
         String[] queryArray = query.toLowerCase().split(" ");
         if (queryArray.length == 1) {
-            if (! searchTree.findKey(query)) {
+            if (!searchTree.findKey(query)) {
                 print(query, null);
             } else {
                 print(query, searchTree.findDataList(query));
@@ -103,7 +101,7 @@ public class SearchEngine {
             LinkedList<String> totalOut = new LinkedList<>();
             totalOut.addAll(inter);
             for (int n = 0; n < queryArray.length; n++) {
-                if (! searchTree.findKey(queryArray[n])) {
+                if (!searchTree.findKey(queryArray[n])) {
                     print(queryArray[n], null);
                 } else {
                     LinkedList<String> temp = searchTree.findDataList(queryArray[n]);
@@ -126,9 +124,9 @@ public class SearchEngine {
      * @param documents Output of documents from query
      */
     public static void print(String query, LinkedList<String> documents) {
-        if (documents == null || documents.isEmpty())
+        if (documents == null || documents.isEmpty()) {
             System.out.println("The search yielded no results for " + query);
-        else {
+        } else {
             Object[] converted = documents.toArray();
             Arrays.sort(converted);
             System.out.println("Documents related to " + query + " are: " + Arrays.toString(converted));

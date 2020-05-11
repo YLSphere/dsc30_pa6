@@ -9,7 +9,7 @@ import java.util.*;
  * Binary search tree implementation.
  * 
  * @author Yin Lam Lai
- * @since  A15779757
+ * @since  7/5/2020
  */
 public class BSTree<T extends Comparable<? super T>> implements Iterable {
 
@@ -193,7 +193,7 @@ public class BSTree<T extends Comparable<? super T>> implements Iterable {
         }
         BSTNode temp = root;
 
-        if (this.findKey(key) == false) {
+        if (!this.findKey(key)) {
             while (temp != null) {
                 if (key.compareTo(temp.getKey()) == -1) {
                     if (temp.getLeft() == null) {
@@ -253,7 +253,7 @@ public class BSTree<T extends Comparable<? super T>> implements Iterable {
         if (key == null) {
             throw new NullPointerException();
         }
-        if (! findKey(key)) {
+        if (!findKey(key)) {
             throw new IllegalArgumentException();
         }
 
@@ -284,7 +284,7 @@ public class BSTree<T extends Comparable<? super T>> implements Iterable {
         if (key == null) {
             throw new NullPointerException();
         }
-        if (! findKey(key)) {
+        if (!findKey(key)) {
             throw new IllegalArgumentException();
         }
 
@@ -323,10 +323,11 @@ public class BSTree<T extends Comparable<? super T>> implements Iterable {
             int heightLeft = findHeightHelper(root.getLeft());
             int heightRight = findHeightHelper(root.getRight());
 
-            if (heightLeft > heightRight)
+            if (heightLeft > heightRight) {
                 return heightLeft + 1;
-            else
+            } else {
                 return heightRight + 1;
+            }
         }
     }
 
