@@ -3,6 +3,7 @@
  * Name: Yin Lam Lai
  * PID:  A15779757
  */
+import java.lang.reflect.Array;
 import java.util.*;
 
 /**
@@ -17,6 +18,7 @@ public class BSTree<T extends Comparable<? super T>> implements Iterable {
 
     private int nelems; // number of elements stored
     private BSTNode root; // reference to root node
+    private static int LEVELER = 2;
 
     /* * * * * BST Node Inner Class * * * * */
 
@@ -411,12 +413,38 @@ public class BSTree<T extends Comparable<? super T>> implements Iterable {
     /* * * * * Extra Credit Methods * * * * */
 
     public ArrayList<T> intersection(Iterator<T> iter1, Iterator<T> iter2) {
-        /* TODO */
-        return null;
+        ArrayList<T> iter1List = new ArrayList<>();
+        ArrayList<T> iter2List = new ArrayList<>();
+        while (iter1.hasNext()) {
+            iter1List.add(iter1.next());
+        }
+        while (iter2.hasNext()) {
+            iter2List.add(iter2.next());
+        }
+        ArrayList<T> finalList = new ArrayList<>();
+        Collections.sort(iter1List);
+        for (T n : iter1List) {
+            if (iter2List.contains(n)) {
+                finalList.add(n);
+            }
+        }
+
+        return finalList;
     }
 
     public int levelCount(int level) {
-        /* TODO */
-        return -1;
+        if (level > this.findHeight()) {
+            return - 1;
+        } else if (level == 0){
+            return 1;
+        } else {
+            int count  = 0;
+            for (int n = 1; n < level; n++) {
+                count += n * LEVELER;
+            }
+            count++;
+            count = this.getSize() - count ;
+            return level * LEVELER - count;
+        }
     }
 }

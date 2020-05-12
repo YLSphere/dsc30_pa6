@@ -1,6 +1,7 @@
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.NoSuchElementException;
@@ -137,6 +138,12 @@ public class BSTreeTester {
         assertEquals(1, test.findHeight());
         test.insert(76);
         assertEquals(2, test.findHeight());
+        test.insert(74);
+        test.insert(5);
+        test.insert(7);
+        test.insert(9);
+        assertEquals(3, test.findHeight());
+
     }
 
     @Test
@@ -191,9 +198,40 @@ public class BSTreeTester {
 
     @Test
     public void intersection() {
+        BSTree test2 = new BSTree();
+        test2.insert(42);
+        test2.insert(5);
+        test2.insert(12);
+        test2.insert(10);
+        test2.insert(59);
+
+        test.insert(42);
+        test.insert(12);
+        test.insert(55);
+        test.insert(13);
+        test.insert(11);
+        test.insert(59);
+
+        Iterator<Integer> iter = test.iterator();
+        Iterator<Integer> iter1 = test2.iterator();
+        ArrayList<Integer> arrayFinal = test.intersection(iter, iter1);
+
+        assertEquals(new Integer(12), arrayFinal.get(0));
+        assertEquals(new Integer(42), arrayFinal.get(1));
+        assertEquals(new Integer(59), arrayFinal.get(2));
+
     }
 
     @Test
     public void levelCount() {
+        test.insert(42);
+        test.insert(12);
+        test.insert(55);
+        test.insert(13);
+        test.insert(11);
+        assertEquals(1, test.levelCount(0));
+        assertEquals(2, test.levelCount(2));
+        assertEquals(-1, test.levelCount(4));
+
     }
 }
